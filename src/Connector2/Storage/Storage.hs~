@@ -1,0 +1,14 @@
+module Storage where
+
+run :: Storage -> IO (Either Connection.ConnectionError Connection.Connection)
+run = Connection.acquire . settings
+  where
+    settings x
+      | isDSNEnabled x = fromString . getDSN $ x
+      | otherwise =
+          Connection.settings
+            (fromString $ getHost x)
+            (getPort x)
+            (fromString $ getUser x)
+            (fromString $ Storage.getPassword x)
+            (fromString $ getDatabase x)

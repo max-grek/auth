@@ -1,0 +1,17 @@
+module Flag2 where
+
+import           System.Console.GetOpt
+
+data Flag = Verbose | Version | Input String | Output String | LibDir String deriving Show
+
+options :: [OptDescr Flag]
+options = [ Option [] ["http-host"] (ReqArg LibDir "huy") "http host"
+          , Option [] ["http-port"] (ReqArg LibDir "port") "http port"
+          ]
+
+compilerOpts :: [String] -> IO ([Flag], [String])
+compilerOpts argv =
+  case getOpt Permute options argv of
+    (o,n,[]  ) -> return (o,n)
+    (_,_,errs) -> ioError (userError (concat errs ++ usageInfo header options))
+  where header = "Usage: ic [OPTION...] files..."

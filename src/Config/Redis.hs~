@@ -1,0 +1,8 @@
+module Config.Redis where
+
+data Redis = Redis
+  { getHost      :: !String,
+    getPort      :: !String,
+    getDSN       :: !String,
+    isDSNEnabled :: !Bool
+  }

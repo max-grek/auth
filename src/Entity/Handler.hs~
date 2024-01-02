@@ -1,0 +1,13 @@
+module Entity.Handler where
+
+import           Data.Aeson
+
+data Signup = Signup
+  { getEmail    :: String,
+    getPassword :: String
+  }
+
+instance FromJSON Signup where
+  parseJSON = withObject "Signup" $ \v -> Signup
+    <$> v .: "email"
+    <*> v .: "password"

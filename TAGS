@@ -1,0 +1,226 @@
+
+./src/Main.hs,153
+module Main Main2,3
+flags flags14,15
+updateHTTP updateHTTP35,36
+updateStorage updateStorage40,41
+updateRedis updateRedis54,55
+main main59,60
+
+./src/Test.hs,0
+
+./src/FlagTest.hs,775
+module FlagTestFlagTest0,1
+data Flag Flag13,14
+data Flag = Flag Flag13,14
+data Flag = Flag { getName getName13,14
+                 , getValue getValue14,15
+                 , getDescription getDescription15,16
+define define18,19
+data Error Error21,22
+data Error = UnknownFlags UnknownFlags21,22
+data Error = UnknownFlags String | FlagSyntax FlagSyntax21,22
+type Flags Flags23,24
+type Args Args24,25
+type FlagNames FlagNames25,26
+_countOcc _countOcc27,28
+_splitBy _splitBy30,31
+_splitByAndRemove _splitByAndRemove33,34
+_splitBy2 _splitBy236,37
+_forSyntax _forSyntax52,53
+_forUnknown _forUnknown60,61
+_check _check71,72
+type FlagNameValuePairs FlagNameValuePairs84,85
+type ArgNameValuePairs ArgNameValuePairs85,86
+parse parse87,88
+
+./src/Config/Redis.hs,318
+module Config.Redis Config.Redis0,1
+data Redis Redis4,5
+data Redis = RedisRedis4,5
+  { getHost getHost5,6
+    getPort getPort6,7
+    getDSN getDSN7,8
+    isDSNEnabled isDSNEnabled8,9
+dummy dummy11,12
+setHost setHost14,15
+setPort setPort17,18
+setDSN setDSN20,21
+setDSNEnabled setDSNEnabled23,24
+
+./src/Config/Http.hs,226
+module Config.Http Config.Http0,1
+data HTTP HTTP4,5
+data HTTP = HTTP HTTP4,5
+data HTTP = HTTP { getHost getHost4,5
+                 , getPort getPort5,6
+dummy dummy8,9
+setHost setHost11,12
+setPort setPort14,15
+
+./src/Config/Storage.hs,977
+module Config.Storage Config.Storage0,1
+data Storage Storage4,5
+data Storage = Storage Storage4,5
+data Storage = Storage { getDriver getDriver4,5
+                       , getUser getUser5,6
+                       , getPassword getPassword6,7
+                       , getDatabase getDatabase7,8
+                       , getSchema getSchema8,9
+                       , getMode getMode9,10
+                       , getDSN getDSN10,11
+                       , getHost getHost11,12
+                       , getPort getPort12,13
+                       , isDSNEnabled isDSNEnabled13,14
+                       , isEncrypted isEncrypted14,15
+dummy dummy17,18
+setDriver setDriver20,21
+setUser setUser23,24
+setPassword setPassword26,27
+setDatabase setDatabase29,30
+setSchema setSchema32,33
+setMode setMode35,36
+setDSN setDSN38,39
+setHost setHost41,42
+setPort setPort44,45
+setDSNEnabled setDSNEnabled47,48
+setEncrypted setEncrypted50,51
+
+./src/Account.hs,409
+module Account Account2,3
+  { getId getId9,10
+    getEmail getEmail10,11
+    getPassword getPassword11,12
+    getStatus getStatus12,13
+    getCreatedAt getCreatedAt13,14
+instance ToJSON ToJSON Account17,18
+  toJSON toJSON18,19
+  toEncoding toEncoding27,28
+setId setId32,33
+setEmail setEmail35,36
+setPassword setPassword38,39
+setStatus setStatus41,42
+setCreatedAt setCreatedAt44,45
+
+./src/Config.hs,644
+class Validate Validate25,26
+  validate validate26,27
+data Config Config28,29
+data Config = Config Config28,29
+instance Validate Validate HTTP30,31
+  validate validate31,32
+instance Validate Validate Storage37,38
+  validate validate38,39
+instance Validate Validate Redis65,66
+  validate validate66,67
+instance Validate Validate Config74,75
+  validate validate75,76
+class Update Update78,79
+  update update79,80
+instance Update Update HTTP81,82
+  update update82,83
+instance Update Update Storage84,85
+  update update85,86
+instance Update Update Redis87,88
+  update update88,89
+_thenLeft _thenLeft90,91
+
+./src/Connector.hs,32
+module Connector Connector0,1
+
+./src/Flag2.hs,282
+module Flag2 Flag20,1
+data Flag Flag5,6
+data Flag = Flag Flag5,6
+data Flag = Flag { getName getName5,6
+                 , getValue getValue6,7
+                 , getDescription getDescription7,8
+options options12,13
+input input17,18
+compilerOpts compilerOpts20,21
+
+./src/db.hs,34
+test test10,11
+main main35,36
+
+./src/Flag/Internal.hs,720
+module Flag.Internal Flag.Internal0,1
+data Flag Flag11,12
+data Flag = Flag Flag11,12
+data Flag = Flag { getName getName11,12
+                   , getValue getValue12,13
+                   , getDescription getDescription13,14
+define define16,17
+data Error Error19,20
+data Error = UnknownFlags UnknownFlags19,20
+data Error = UnknownFlags String | FlagSyntax FlagSyntax19,20
+type Flags Flags21,22
+type Args Args22,23
+type FlagNames FlagNames23,24
+_countOcc _countOcc25,26
+_splitBy _splitBy28,29
+_forSyntax _forSyntax33,34
+_forUnknown _forUnknown41,42
+_check _check52,53
+type FlagNameValuePairs FlagNameValuePairs65,66
+type ArgNameValuePairs ArgNameValuePairs66,67
+parse parse68,69
+
+./src/Flag/Spec.hs,71
+module Internal.Spec Internal.Spec0,1
+spec_splitBy spec_splitBy5,6
+
+./src/Flag.hs,680
+data Flag Flag14,15
+data Flag = Flag Flag14,15
+data Flag = Flag { getName getName14,15
+                   , getValue getValue15,16
+                   , getDescription getDescription16,17
+define define19,20
+data Error Error22,23
+data Error = UnknownFlags UnknownFlags22,23
+data Error = UnknownFlags String | FlagSyntax FlagSyntax22,23
+type Flags Flags24,25
+type Args Args25,26
+type FlagNames FlagNames26,27
+_countOcc _countOcc28,29
+_splitBy _splitBy31,32
+_forSyntax _forSyntax36,37
+_forUnknown _forUnknown44,45
+_check _check55,56
+type FlagNameValuePairs FlagNameValuePairs68,69
+type ArgNameValuePairs ArgNameValuePairs69,70
+parse parse71,72
+
+./src/Connector/Redis.hs,57
+module Connector.Redis Connector.Redis0,1
+run run6,7
+
+./src/Connector/Storage.hs,255
+module Connector.Storage Connector.Storage0,1
+run run18,19
+insertAccount insertAccount31,32
+getAllAccounts getAllAccounts34,35
+insertAccountHistory insertAccountHistory37,38
+transaction transaction40,41
+session session43,44
+doTx doTx46,47
+
+./src/Connector/Storage/Query.hs,179
+module Connector.Storage.Query Connector.Storage.Query2,3
+insertAccount insertAccount18,19
+getAllAccount getAllAccount28,29
+insertAccountHistory insertAccountHistory41,42
+
+./src/Connector/Query.hs,163
+module Connector.Query Connector.Query2,3
+insertAccount insertAccount18,19
+getAllAccount getAllAccount28,29
+insertAccountHistory insertAccountHistory41,42
+
+./src/Server.hs,15
+main main6,7
+
+./app/Main.hs,37
+module Main Main0,1
+main main2,3

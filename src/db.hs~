@@ -1,0 +1,32 @@
+{-# LANGUAGE DuplicateRecordFields #-}
+
+import           Config.Redis
+import           Config.Storage
+import           Connector
+
+main :: IO ()
+main = do
+  redisConn <- Redis.initialise test2
+  print "huy"
+
+test =
+  Storage
+    { getDriver = "postgres",
+      getUser = "amc_dev",
+      getPassword = "amcdev",
+      getDatabase = "amcdb_dev",
+      getSchema = "userdata",
+      getMode = "disable",
+      getDSN = "",
+      getHost = "0.0.0.0",
+      getPort = 5433,
+      isDSNEnabled = False,
+      isEncrypted = False
+    }
+
+test2 =
+  Redis { getHost = "0.0.0.0"
+        , getPort =  6379
+        , getDSN = ""
+        , isDSNEnabled = False
+        }

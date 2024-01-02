@@ -1,0 +1,19 @@
+module Connector.Redis where
+
+import           Config.Redis
+import qualified Config.Redis   as Config (Redis (..))
+import qualified Database.Redis as Redis
+
+run :: Config.Redis -> IO Redis.Connection
+run = Redis.checkedConnect . settings
+  where
+    settings :: Config.Redis -> Redis.ConnectInfo
+    settings x
+      | isDSNEnabled x = case Redis.parseConnectInfo . getDSN $ x of
+          Left e  -> Redis.defaultConnectInfo
+          Right v -> v
+      | otherwise =
+          Redis.defaultConnectInfo
+            { Redis.connectHost = Config.getHost x,
+              Redis.connectPort = Redis.PortNumber . fromIntegral $ Config.getPort x
+            }

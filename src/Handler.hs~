@@ -1,0 +1,16 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+module Handler where
+
+import           Data.Binary.Builder
+import           Hasql.Connection
+import           Network.HTTP.Types
+import           Network.Wai
+import           Network.Wai.Parse
+
+
+signup :: Request -> Connection -> IO Response
+--signup req conn = pure $ responseBuilder status200 [] "idi nahuy"
+signup req conn = do
+  (params,_) <- parseRequestBodyEx defaultParseRequestBodyOptions lbsBackEnd req
+  pure $ responseBuilder status200 [] $ fromByteString $ snd $ head params

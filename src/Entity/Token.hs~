@@ -1,0 +1,13 @@
+module Entity.Token where
+
+import           Data.Int
+
+data Token =
+  Token
+    { getAccessToken  :: !String
+    , getRefreshToken :: !String
+    , getAccessUUID   :: !String
+    , getRefreshUUID  :: !String
+    , getATExpires    :: !Int64
+    , getRTExpires    :: !Int64
+    }

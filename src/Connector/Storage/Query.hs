@@ -1,0 +1,77 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+module Connector.Storage.Query (insertAccountHistory, insertAccount, getAccount, getAllAccount) where
+
+import           Contravariant.Extras.Contrazip
+import           Data.ByteString
+import           Data.Functor.Contravariant
+import           Data.Int
+import           Data.Text                      (Text)
+import qualified Data.Text                      as T
+import           Data.Time                      (LocalTime)
+import           Data.UUID                      (UUID)
+import           Entity.Account                 (Account (..))
+import           Hasql.Decoders                 (Result)
+import qualified Hasql.Decoders                 as D
+import qualified Hasql.Encoders                 as E
+import           Hasql.Statement                (Statement (..))
+
+insertAccount :: Statement Account ()
+insertAccount = Statement sql params D.noResult False
+  where
+    params =
+      (getId >$< E.param (E.nonNullable E.uuid))
+        <> ((T.pack . getEmail) >$< E.param (E.nonNullable E.text))
+        <> ((T.pack . getPassword) >$< E.param (E.nonNullable E.text))
+        <> ((T.pack . getStatus) >$< E.param (E.nonNullable E.text))
+    sql = "INSERT INTO userdata.account (id, email, password, status) VALUES ($1, $2, $3, $4)"
+
+getAccount :: Statement Text (Maybe Account)
+getAccount = Statement sql params decoder False
+  where
+    params = E.param (E.nonNullable E.text)
+    decoder =
+      D.rowMaybe $
+        Account
+        <$> D.column (D.nonNullable D.uuid)
+        <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+        <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+        <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+        <*> D.column (D.nonNullable D.timestamp)
+    sql = "SELECT id, email, password, status, created_at FROM userdata.account WHERE email = $1"
+
+getAllAccount :: Statement () [Account]
+getAllAccount = Statement sql E.noParams decoder False
+  where
+    decoder =
+      D.rowList $
+        Account
+          <$> D.column (D.nonNullable D.uuid)
+          <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+          <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+          <*> D.column (D.nonNullable $ fmap T.unpack D.text)
+          <*> D.column (D.nonNullable D.timestamp)
+    sql = "SELECT id, email, password, status, created_at FROM userdata.account"
+
+insertAccountHistory :: Statement (UUID, Account) ()
+insertAccountHistory = Statement sql params D.noResult False
+  where
+    t1 = E.param (E.nonNullable E.uuid)
+    t2 =
+      (getId >$< E.param (E.nonNullable E.uuid))
+        <> ((T.pack . getEmail) >$< E.param (E.nonNullable E.text))
+        <> ((T.pack . getPassword) >$< E.param (E.nonNullable E.text))
+        <> ((T.pack . getStatus) >$< E.param (E.nonNullable E.text))
+        <> (getCreatedAt >$< E.param (E.nonNullable E.timestamp))
+    params = contrazip2 t1 t2
+    sql = "INSERT INTO userdata.account_history (id, account_id, email, password, status) VALUES ($1, $2, $3, $4, $5)"
+
+-- updateAccount :: Statement (LocalTime, Account) Int64
+-- updateAccount = Statement sql p D.rowsAffected False
+--   where
+--     t1 =
+--       (T.pack . getPassword >$< E.param (E.nonNullable E.text))
+--         <> ( >$< E.param (E.nonNullable E.timestamp))
+--         <> (T.pack . getEmail >$< E.param (E.nonNullable E.text))
+--     p = contrazip t1 t2 t3
+--     sql = "UPDATE userdata.account SET password = $1, modified_at = $2 WHERE email = $3"

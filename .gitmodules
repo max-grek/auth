@@ -1,0 +1,6 @@
+[submodule "docker-flows"]
+	path = docker-flows
+	url = git@github.com:amc-playground/docker-flows.git
+[submodule "makefiles"]
+	path = makefiles
+	url = git@github.com:amc-playground/makefiles.git
